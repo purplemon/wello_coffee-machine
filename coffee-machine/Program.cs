@@ -1,4 +1,6 @@
-﻿using System;
+﻿using coffee_machine.Models;
+using System;
+using System.Linq;
 
 namespace coffee_machine
 {
@@ -6,7 +8,12 @@ namespace coffee_machine
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            var newSale = new SaleController();
+
+            //End
+            Console.WriteLine("\nFinished. Press any key to exit");
+            Console.ReadKey();
         }
     }
 }

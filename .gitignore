@@ -1,7 +1,34 @@
-.vs/
+# Visual Studio cache/options directory
+.vs
+
+# User-specific files
+*.rsuser
 *.suo
 *.user
-_ReSharper.*
-bin
+*.userosscache
+*.sln.docstates
+
+# Intermediate Compiled Objects 
 obj
-packages
+
+# Compiled Executables
+bin
+
+# NUnit
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ReSharper is a .NET coding add-in
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# NuGet Packages (if any)
+*.nupkg
