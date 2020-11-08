@@ -2,7 +2,7 @@
 
 This repo contains all the source files to build and run a virtual coffee machine.
 
-Simply [download](slides-students-C04.pdf), the executable to get started, or optionally download the sourcecode and build solution yourself.
+Simply [download](slides-students-C04.pdf) the executable to get started, or optionally download the sourcecode and build solution yourself.
 
 ## PLATFORM DETAILS
 
