@@ -1,8 +1,7 @@
-﻿using coffee_machine.Models;
+﻿using CoffeeMachine.Controller;
 using System;
-using System.Linq;
 
-namespace coffee_machine
+namespace CoffeeMachine
 {
     class Program
     {

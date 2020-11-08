@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using CoffeeMachine.Inerface;
 
-namespace coffee_machine.Models
+namespace CoffeeMachine.Models
 {
     class BeverageSizeAndPrice : IBeverageSizeAndPrice
     {

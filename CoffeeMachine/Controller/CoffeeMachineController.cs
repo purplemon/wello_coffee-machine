@@ -1,30 +1,43 @@
-﻿using coffee_machine.Models;
-using coffee_machine.Utilities;
+﻿using CoffeeMachine.Models;
+using CoffeeMachine.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace coffee_machine
+namespace CoffeeMachine.Controller
 {
     class CoffeeMachineController
     {
-        public static void StartCoffeeMachine()
+        public static bool StartCoffeeMachine()
+        {
+
+            // Welcome Message
+            PrintWelcomeMessage();
+
+            Order order = GetNewOrder();
+            
+
+            // Check if order was successful
+            if (order != null)
+            {
+                
+                Console.WriteLine("\nThank you for your order. Goodbye!\n");
+                return true;
+            } else
+            {
+                Console.WriteLine("\nYour order was not completed.\n");
+                return false;
+            }
+
+        }
+
+        public static Order GetNewOrder()
         {
             try
             {
-                // Welcome Message
-                PrintWelcomeMessage();
-
-
-                // Prepare Menu
-                CoffeeMenu coffeeMenu = new CoffeeMenu();
-
-                // Prompt to see menu or proceed with ordering
-                string userResponse = PromptForMenu();
-                if (userResponse == "menu") { coffeeMenu.PrintMenu(); }
-
-
+                
+                // Get menu
+                CoffeeMenu coffeeMenu = GetCoffeeMenu();
+                
                 // Build Order
                 Order order = new Order(coffeeMenu);
                 order.BuildOrder();
@@ -32,13 +45,13 @@ namespace coffee_machine
                 // Process Orcer
                 order.ProcessPayment();
 
-                //End
-                Console.WriteLine("\nThank you for your order. Goodbye!\n");
+                return order;
+            } catch (Exception e)
+            {
+                Console.Error.Write("An error occured while building the order:" + e);
+                return null;
             }
-            catch (Exception e) {
-                Console.Error.Write(e);
-            }
-
+            
         }
 
 
@@ -50,8 +63,11 @@ namespace coffee_machine
 
         }
 
-        static string PromptForMenu()
+        public static CoffeeMenu GetCoffeeMenu()
         {
+            CoffeeMenu coffeeMenu = new CoffeeMenu();
+
+            // Prompt to optionally see menu
             Prompt prompt = new Prompt();
             prompt.Message = "What can I get for you?\n" +
                 "\t'menu' - View menu and prices\n" +
@@ -64,7 +80,9 @@ namespace coffee_machine
                 prompt.Message = "Invalid option";
                 userResponse = prompt.GetUserInput();
             }
-            return userResponse;
+            if (userResponse == "menu") { coffeeMenu.PrintMenu(); }
+
+            return coffeeMenu;
         }
     }
 }

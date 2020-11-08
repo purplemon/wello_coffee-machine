@@ -1,10 +1,9 @@
-﻿using coffee_machine.Utilities;
+﻿using CoffeeMachine.Utilities;
 using System;
-using System.Collections.Generic;
+using CoffeeMachine.Inerface;
 using System.Linq;
-using System.Text;
 
-namespace coffee_machine.Models
+namespace CoffeeMachine.Models
 {
     class Coffee : IBeverage
     {

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>coffee_machine</RootNamespace>
+    <RootNamespace>CoffeeMachine</RootNamespace>
   </PropertyGroup>
 
 </Project>

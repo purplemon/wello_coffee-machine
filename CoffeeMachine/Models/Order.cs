@@ -1,9 +1,10 @@
-﻿using coffee_machine.Utilities;
+﻿using CoffeeMachine.Inerface;
+using CoffeeMachine.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace coffee_machine.Models
+namespace CoffeeMachine.Models
 {
     class Order : IOrder
     {
