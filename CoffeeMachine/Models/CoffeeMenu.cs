@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using CoffeeMachine.Inerface;
 
-namespace coffee_machine.Models
+namespace CoffeeMachine.Models
 {
     class CoffeeMenu : IBeverageMenu
     {

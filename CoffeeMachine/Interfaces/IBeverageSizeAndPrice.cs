@@ -1,9 +1,9 @@
-﻿using coffee_machine.Models;
+﻿using CoffeeMachine.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace coffee_machine
+namespace CoffeeMachine.Inerface
 {
     interface IBeverageSizeAndPrice
     {

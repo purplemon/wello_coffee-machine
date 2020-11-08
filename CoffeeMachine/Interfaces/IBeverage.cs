@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace coffee_machine
+namespace CoffeeMachine.Inerface
 {
     interface IBeverage
     {
