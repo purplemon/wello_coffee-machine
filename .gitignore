@@ -31,4 +31,4 @@ _ReSharper*/
 *.DotSettings.user
 
 # NuGet Packages (if any)
-*.nupkg
+/*/packages
