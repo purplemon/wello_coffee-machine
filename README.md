@@ -18,14 +18,12 @@ It does not require a persistent datastore.
 
 - The virtual coffee machine can only make coffee.
 
-- The user has a choice from 3 sizes: 
-        small       $2.95
-        medium      $3.25
-        large       $3.95
-Prices were not specified, and ww chose them to be competitive with a close competitor of CSharpBucks, StarBucks.
+- The user has a choice from 3 sizes: small ($2.95), medium ($3.25), large ($3.95). Prices were not specified, and we chose them to be competitive with a close competitor of CSharpBucks, StarBucks.
 
 - The user can order more than one coffee.
 
 - The user can optionally add up to 3 sugars or 3 creams in each coffee.
 
 - The coffee machine will prompt for payment and inform the user if inadequate payment is received.
+
+- The user can pay using standard cash increments.
