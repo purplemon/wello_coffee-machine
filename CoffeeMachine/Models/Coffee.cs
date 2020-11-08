@@ -8,8 +8,8 @@ namespace coffee_machine.Models
 {
     class Coffee : IBeverage
     {
-        private CoffeePriceList _priceList;
-        public Coffee(CoffeePriceList priceList)
+        private CoffeeMenu _priceList;
+        public Coffee(CoffeeMenu priceList)
         {
             this._priceList = priceList;
         }
@@ -71,7 +71,7 @@ namespace coffee_machine.Models
         }
 
 
-        public string PromptForAddIns(string name, int maxNumber)
+        public string PromptForAddIn(string name, int maxNumber)
         {
             Prompt prompt = new Prompt();
             prompt.Message = "\n" +
@@ -87,16 +87,16 @@ namespace coffee_machine.Models
             return userResponse;
         }
 
-        public void BuildCoffee()
+        public void Build()
         {
             // Select Size
             Size = PromptForSize();
 
             // Prompt for sugar
-            NumberOfSugars = Convert.ToInt32(PromptForAddIns("sugars", _priceList.MaxNumberOfSugars));
+            NumberOfSugars = Convert.ToInt32(PromptForAddIn("sugars", _priceList.MaxNumberOfSugars));
 
             // Prompt for cream
-            NumberOfCreams = Convert.ToInt32(PromptForAddIns("creams", _priceList.MaxNumberOfCreams));
+            NumberOfCreams = Convert.ToInt32(PromptForAddIn("creams", _priceList.MaxNumberOfCreams));
 
             //Print Coffee Summary
             PrintSummary();

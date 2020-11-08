@@ -9,34 +9,40 @@ namespace coffee_machine
 {
     class CoffeeMachineController
     {
-        public CoffeeMachineController()
+        public static void StartCoffeeMachine()
         {
-
-            // Welcome Message
-            PrintWelcomeMessage();
-
-
-            // Prepare Menu
-            CoffeePriceList coffeeMenu = new CoffeePriceList();
-
-            // Prompt to see menu or proceed with ordering
-            string userResponse = PromptForMenu();
-            if (userResponse == "menu") { coffeeMenu.PrintMenu(); }
+            try
+            {
+                // Welcome Message
+                PrintWelcomeMessage();
 
 
-            // Build Order
-            Order order = new Order(coffeeMenu);
-            order.BuildOrder();
+                // Prepare Menu
+                CoffeeMenu coffeeMenu = new CoffeeMenu();
 
-            // Process Orcer
-            order.ProcessPayment();
+                // Prompt to see menu or proceed with ordering
+                string userResponse = PromptForMenu();
+                if (userResponse == "menu") { coffeeMenu.PrintMenu(); }
 
-            //End
-            Console.WriteLine("\nThank you for your order. Good bye!\n");
+
+                // Build Order
+                Order order = new Order(coffeeMenu);
+                order.BuildOrder();
+
+                // Process Orcer
+                order.ProcessPayment();
+
+                //End
+                Console.WriteLine("\nThank you for your order. Goodbye!\n");
+            }
+            catch (Exception e) {
+                Console.Error.Write(e);
+            }
+
         }
 
 
-        void PrintWelcomeMessage()
+        static void PrintWelcomeMessage()
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Hello! Welcome to CSharpBucks(TM)\r");
@@ -44,7 +50,7 @@ namespace coffee_machine
 
         }
 
-        string PromptForMenu()
+        static string PromptForMenu()
         {
             Prompt prompt = new Prompt();
             prompt.Message = "What can I get for you?\n" +

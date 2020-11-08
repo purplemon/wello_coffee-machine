@@ -13,5 +13,9 @@ namespace coffee_machine
         public decimal PaymentReceived { get; set; }
         public decimal ChangeDue { get { return TotalPrice * PaymentReceived; } }
 
+        void PrintOrderSummary();
+        void BuildOrder();
+        void ProcessPayment();
+
     }
 }

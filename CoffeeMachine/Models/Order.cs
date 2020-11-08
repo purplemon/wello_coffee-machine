@@ -8,8 +8,8 @@ namespace coffee_machine.Models
     class Order : IOrder
     {
 
-        private CoffeePriceList _priceList;
-        public Order(CoffeePriceList priceList)
+        private CoffeeMenu _priceList;
+        public Order(CoffeeMenu priceList)
         {
             this._priceList = priceList;
         }
@@ -32,7 +32,7 @@ namespace coffee_machine.Models
             {
                 //Build coffee
                 Coffee coffee = new Coffee(_priceList);
-                coffee.BuildCoffee();
+                coffee.Build();
 
                 // Add to order
                 BeverageList.Add(coffee);

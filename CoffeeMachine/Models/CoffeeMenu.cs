@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace coffee_machine.Models
 {
-    class CoffeePriceList : IBeveragePriceList
+    class CoffeeMenu : IBeverageMenu
     {
         public IList<IBeverageSizeAndPrice> SizeOptionList { get; }
 
-        public CoffeePriceList()
+        public CoffeeMenu()
         {
 
             SizeOptionList = new List<IBeverageSizeAndPrice>

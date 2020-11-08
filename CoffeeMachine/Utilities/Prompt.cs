@@ -22,7 +22,7 @@ namespace coffee_machine.Utilities
 
         public static string CleanCurrencyInput(string dirtyString)
         {
-            // Replace $ characters with empty strings.
+            // Replace $ characters at the start of the input string with empty strings. (In case the user enters $0.80 as an example)
             try
             {
                 return Regex.Replace(dirtyString, @"^[\$]", "",

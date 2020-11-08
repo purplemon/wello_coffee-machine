@@ -8,11 +8,11 @@ namespace coffee_machine
     {
         static void Main(string[] args)
         {
-
-            var newSale = new CoffeeMachineController();
+            // Start Application
+            CoffeeMachineController.StartCoffeeMachine();
 
             //End
-            Console.WriteLine("\nFinished. Press any key to exit");
+            Console.WriteLine("\nThe coffe machine will now shut down. Press any key to exit");
             Console.ReadKey();
         }
     }

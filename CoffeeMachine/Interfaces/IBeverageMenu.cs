@@ -5,7 +5,7 @@ using System.Text;
 
 namespace coffee_machine
 {
-    interface IBeveragePriceList
+    interface IBeverageMenu
     {
         public IList<IBeverageSizeAndPrice> SizeOptionList { get; }
     }
