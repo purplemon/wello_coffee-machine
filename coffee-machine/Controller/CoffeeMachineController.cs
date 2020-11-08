@@ -7,18 +7,18 @@ using System.Text;
 
 namespace coffee_machine
 {
-    class SaleController
+    class CoffeeMachineController
     {
-        public SaleController()
+        public CoffeeMachineController()
         {
 
             // Welcome Message
             PrintWelcomeMessage();
 
 
-            // Create Menu Object
+            // Prepare Menu
             CoffeePriceList coffeeMenu = new CoffeePriceList();
-            
+
             // Prompt to see menu or proceed with ordering
             string userResponse = PromptForMenu();
             if (userResponse == "menu") { coffeeMenu.PrintMenu(); }
@@ -26,7 +26,13 @@ namespace coffee_machine
 
             // Build Order
             Order order = new Order(coffeeMenu);
-            order.BuildOrder(); 
+            order.BuildOrder();
+
+            // Process Orcer
+            order.ProcessPayment();
+
+            //End
+            Console.WriteLine("\nThank you for your order. Good bye!\n");
         }
 
 
@@ -40,18 +46,17 @@ namespace coffee_machine
 
         string PromptForMenu()
         {
-            string prompt = "What can I get for you?\n" +
+            Prompt prompt = new Prompt();
+            prompt.Message = "What can I get for you?\n" +
                 "\t'menu' - View menu and prices\n" +
                 "\t'order' - Create order\n";
-            
-            Utility u = new Utility();
-
-            string userResponse = u.GetUserInput(prompt);
+            string userResponse = prompt.GetUserInput();
             string[] expectedResponse = { "order", "menu" };
             while (!expectedResponse.Contains(userResponse))
             {
                 // prompt again
-                userResponse = u.GetUserInput(prompt);
+                prompt.Message = "Invalid option";
+                userResponse = prompt.GetUserInput();
             }
             return userResponse;
         }

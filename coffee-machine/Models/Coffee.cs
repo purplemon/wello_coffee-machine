@@ -39,8 +39,8 @@ namespace coffee_machine.Models
 
         public void PrintSummary()
         {
-            Console.WriteLine("\nThe total for this " + Name + " will be:\r");
-            Console.WriteLine("\tSize: " + Size + "\t\t" + BasePrice.ToString("C") + "\r");
+            Console.WriteLine("\n   The details for this " + Name + " are:\r\n");
+            Console.WriteLine("\tSIZE: " + Size + "\t\t" + BasePrice.ToString("C") + "\r");
             Console.WriteLine("\t\t" + NumberOfSugars + " sugars\t" + (_priceList.SugarPrice * NumberOfSugars).ToString("C") + "\r");
             Console.WriteLine("\t\t" + NumberOfCreams + " creams\t" + (_priceList.CreamPrice * NumberOfCreams).ToString("C") + "\r");
             Console.WriteLine("\t---------------------------------\r");
@@ -50,37 +50,56 @@ namespace coffee_machine.Models
 
         public string PromptForSize()
         {
-            string prompt = "What size would you like? (";
+            Prompt prompt = new Prompt();
+            prompt.Message = "What size would you like? (";
             foreach (var size in _priceList.SizeOptionList)
             {
-                prompt = prompt + size.Size.ToLower() + "/";
+                prompt.Message = prompt.Message + size.Size.ToLower() + "/";
             }
-            prompt.Trim('/');
-            prompt = prompt + ")";
+            prompt.Message.Trim('/');
+            prompt.Message = prompt.Message + ")";
 
-            Utility u = new Utility();
-            string userResponse = u.GetUserInput(prompt);
-            while (_priceList.SizeOptionList.Where(x => x.Size == userResponse).Count() < 1)
+            
+            string userResponse = prompt.GetUserInput();
+            while (_priceList.SizeOptionList.Where(x => x.Size == userResponse).Count() < 1) // while not a valid size option
             {
                 // prompt again
-                userResponse = u.GetUserInput("Invalid size.");
+                prompt.Message = "Invalid size.";
+                userResponse = prompt.GetUserInput();
             }
             return userResponse;
         }
 
 
-        public string PromptForAddIns(string name)
+        public string PromptForAddIns(string name, int maxNumber)
         {
-            string prompt = "\n" +
-                    "How many " + name + " would you like? You may select up to 3.";
-            Utility u = new Utility();
-            string userResponse = u.GetUserInput(prompt);
-            while (!int.TryParse(userResponse, out int num) || Convert.ToInt32(userResponse) < 0 || Convert.ToInt32(userResponse) > 3)
+            Prompt prompt = new Prompt();
+            prompt.Message = "\n" +
+                    "How many " + name + " would you like? You may select 0 to " + maxNumber + ".";
+            
+            string userResponse = prompt.GetUserInput();
+            while (!int.TryParse(userResponse, out int num) || Convert.ToInt32(userResponse) < 0 || Convert.ToInt32(userResponse) > maxNumber) // while not an integer value between 0 and maxNumber
             {
                 // prompt again
-                userResponse = u.GetUserInput("Please specify an integer from 0 to 3:");
+                prompt.Message = "Please specify an integer from 0 to " + maxNumber + ":";
+                userResponse = prompt.GetUserInput();
             }
             return userResponse;
+        }
+
+        public void BuildCoffee()
+        {
+            // Select Size
+            Size = PromptForSize();
+
+            // Prompt for sugar
+            NumberOfSugars = Convert.ToInt32(PromptForAddIns("sugars", _priceList.MaxNumberOfSugars));
+
+            // Prompt for cream
+            NumberOfCreams = Convert.ToInt32(PromptForAddIns("creams", _priceList.MaxNumberOfCreams));
+
+            //Print Coffee Summary
+            PrintSummary();
         }
     }
 }

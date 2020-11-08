@@ -9,7 +9,7 @@ namespace coffee_machine
         static void Main(string[] args)
         {
 
-            var newSale = new SaleController();
+            var newSale = new CoffeeMachineController();
 
             //End
             Console.WriteLine("\nFinished. Press any key to exit");

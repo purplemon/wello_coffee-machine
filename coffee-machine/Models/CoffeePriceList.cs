@@ -23,6 +23,9 @@ namespace coffee_machine.Models
 
         public decimal CreamPrice { get; } = 0.50m;
 
+        public int MaxNumberOfCreams { get; set; } = 3;
+        public int MaxNumberOfSugars { get; set; } = 3;
+
         public void PrintMenu()
         {
             Console.WriteLine("\nWe are currently serving: IMAGINARY COFFEE\r");
@@ -31,7 +34,7 @@ namespace coffee_machine.Models
             {
                 Console.WriteLine("\t" + size.Size.ToLower() + "\t\t" + size.Price.ToString("C"));
             }
-            Console.WriteLine("\nYou may order up to 3 sugar and 3 cream in your coffee for an additional fee as follows:");
+            Console.WriteLine("\nYou may order up to " + MaxNumberOfSugars  + " sugar and " + MaxNumberOfCreams + " cream in your coffee for an additional fee as follows:");
             Console.WriteLine("\tsugar \t\t " + SugarPrice.ToString("C") + " each");
 
             Console.WriteLine("\tcream \t\t " + CreamPrice.ToString("C") + " each");
