@@ -12,8 +12,8 @@ namespace coffee_machine.Models
 
             SizeOptionList = new List<IBeverageSizeAndPrice>
             {
-                new BeverageSizeAndPrice { Size = "small", Price = 1.95m },
-                new BeverageSizeAndPrice { Size = "medium", Price = 2.95m },
+                new BeverageSizeAndPrice { Size = "small", Price = 2.95m },
+                new BeverageSizeAndPrice { Size = "medium", Price = 3.25m },
                 new BeverageSizeAndPrice { Size = "large", Price = 3.95m }
             };
         }
