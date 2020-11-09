@@ -1,4 +1,4 @@
-# VCSharpBucks - Virtual Coffee Machine (.NET Console application)
+# CSharpBucks - Virtual Coffee Machine (.NET Console application)
 
 This repo contains all the source files to build and run a virtual coffee machine.
 
