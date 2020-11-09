@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using CoffeeMachine.Inerface;
+using CoffeeMachine.Interface;
 
 namespace CoffeeMachine.Models
 {
-    class CoffeeMenu : IBeverageMenu
+    public class CoffeeMenu : IBeverageMenu
     {
         public IList<IBeverageSizeAndPrice> SizeOptionList { get; }
 

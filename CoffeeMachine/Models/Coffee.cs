@@ -1,16 +1,21 @@
-﻿using CoffeeMachine.Utilities;
+﻿using CoffeeMachine.Interface;
+using CoffeeMachine.Utilities;
 using System;
-using CoffeeMachine.Inerface;
 using System.Linq;
 
 namespace CoffeeMachine.Models
 {
-    class Coffee : IBeverage
+    public class Coffee : IBeverage
     {
         private CoffeeMenu _priceList;
-        public Coffee(CoffeeMenu priceList)
+        private IPrompt _prompt;
+        public Coffee(CoffeeMenu priceList, IPrompt prompt)
         {
             this._priceList = priceList;
+            this._prompt = prompt;
+        }
+        public Coffee()
+        {
         }
 
         public string Name { get; set; } = "coffee";
@@ -47,41 +52,39 @@ namespace CoffeeMachine.Models
         }
 
 
-        public string PromptForSize()
+        public virtual string PromptForSize()
         {
-            Prompt prompt = new Prompt();
-            prompt.Message = "What size would you like? (";
+            _prompt.Message = "What size would you like? (";
             foreach (var size in _priceList.SizeOptionList)
             {
-                prompt.Message = prompt.Message + size.Size.ToLower() + "/";
+                _prompt.Message = _prompt.Message + size.Size.ToLower() + "/";
             }
-            prompt.Message.Trim('/');
-            prompt.Message = prompt.Message + ")";
+            _prompt.Message.Trim('/');
+            _prompt.Message = _prompt.Message + ")";
 
             
-            string userResponse = prompt.GetUserInput();
+            string userResponse = _prompt.GetUserInput();
             while (_priceList.SizeOptionList.Where(x => x.Size == userResponse).Count() < 1) // while not a valid size option
             {
                 // prompt again
-                prompt.Message = "Invalid size.";
-                userResponse = prompt.GetUserInput();
+                _prompt.Message = "Invalid size.";
+                userResponse = _prompt.GetUserInput();
             }
             return userResponse;
         }
 
 
-        public string PromptForAddIn(string name, int maxNumber)
+        public virtual string PromptForAddIn(string addInName, int maxNumber)
         {
-            Prompt prompt = new Prompt();
-            prompt.Message = "\n" +
-                    "How many " + name + " would you like? You may select 0 to " + maxNumber + ".";
+            _prompt.Message = "\n" +
+                    "How many " + addInName + " would you like? You may select 0 to " + maxNumber + ".";
             
-            string userResponse = prompt.GetUserInput();
+            string userResponse = _prompt.GetUserInput();
             while (!int.TryParse(userResponse, out int num) || Convert.ToInt32(userResponse) < 0 || Convert.ToInt32(userResponse) > maxNumber) // while not an integer value between 0 and maxNumber
             {
                 // prompt again
-                prompt.Message = "Please specify an integer from 0 to " + maxNumber + ":";
-                userResponse = prompt.GetUserInput();
+                _prompt.Message = "Please specify an integer from 0 to " + maxNumber + ":";
+                userResponse = _prompt.GetUserInput();
             }
             return userResponse;
         }

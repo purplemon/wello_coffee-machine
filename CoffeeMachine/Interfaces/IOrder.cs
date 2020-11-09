@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CoffeeMachine.Inerface
+namespace CoffeeMachine.Interface
 {
-    interface IOrder
+    public interface IOrder
     {
         public IList<IBeverage> BeverageList { get; set; }
         public decimal TotalPrice { get; }
@@ -14,7 +14,7 @@ namespace CoffeeMachine.Inerface
         public decimal ChangeDue { get { return TotalPrice * PaymentReceived; } }
 
         void PrintOrderSummary();
-        void BuildOrder();
+        void Build();
         void ProcessPayment();
 
     }

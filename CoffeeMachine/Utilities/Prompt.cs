@@ -3,11 +3,11 @@ using System.Text.RegularExpressions;
 
 namespace CoffeeMachine.Utilities
 {
-    class Prompt
+    public class Prompt : Interface.IPrompt
     {
         public  string Message { get; set; }
 
-        public string GetUserInput()
+        public virtual string GetUserInput()
         {
             Console.WriteLine(Message);
             Console.ForegroundColor = ConsoleColor.Green;

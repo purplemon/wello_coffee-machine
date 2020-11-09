@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Security.Principal;
 using System.Text;
 
-namespace CoffeeMachine.Inerface
+namespace CoffeeMachine.Interface
 {
-    interface IBeverageMenu
+    public interface IBeverageMenu
     {
         public IList<IBeverageSizeAndPrice> SizeOptionList { get; }
     }

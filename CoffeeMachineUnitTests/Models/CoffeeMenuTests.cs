@@ -3,10 +3,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CoffeeMachine.UnitTests
 {
-    //[TestClass]
-    public class IBeverageSizeAndPriceTests
+    public class CoffeeMenuTests
     {
+
         // No tests
+
     }
 
 }

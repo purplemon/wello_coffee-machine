@@ -1,11 +1,13 @@
-﻿using System;
+﻿using CoffeeMachine.Interface;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CoffeeMachine.Inerface
+namespace CoffeeMachine.Interface
 {
-    interface IBeverage
+    public interface IBeverage
     {
+
         public string Name { get; }
         public string Size { get; }
         public decimal BasePrice { get; }

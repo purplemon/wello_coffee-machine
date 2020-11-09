@@ -1,4 +1,4 @@
-﻿using CoffeeMachine.Inerface;
+﻿using CoffeeMachine.Interface;
 using CoffeeMachine.Utilities;
 using System;
 using System.Collections.Generic;
@@ -6,13 +6,20 @@ using System.Linq;
 
 namespace CoffeeMachine.Models
 {
-    class Order : IOrder
+    public class Order : IOrder
     {
 
         private CoffeeMenu _priceList;
-        public Order(CoffeeMenu priceList)
+        private IBeverage _newCoffee;
+        private IPrompt _prompt;
+        public Order(CoffeeMenu priceList, IPrompt prompt)
         {
             this._priceList = priceList;
+            this._prompt = prompt;
+            this._newCoffee = new Coffee(priceList, prompt) ;
+        }
+        public Order()
+        {
         }
 
 
@@ -25,14 +32,14 @@ namespace CoffeeMachine.Models
         public decimal PaymentReceived { get; set; } = 0;
         public decimal ChangeDue { get { return PaymentReceived - TotalPrice; } }
 
-        public void BuildOrder()
+        public void Build()
         {
 
             string userResponse;
             do
             {
                 //Build coffee
-                Coffee coffee = new Coffee(_priceList);
+                Coffee coffee = new Coffee(_priceList, _prompt);
                 coffee.Build();
 
                 // Add to order
@@ -75,12 +82,11 @@ namespace CoffeeMachine.Models
             Console.WriteLine("Total coffees ordered:\t" + BeverageList.Count() + "\n\n");
             for ( int orderItem = 0; orderItem < BeverageList.Count(); orderItem++)
             {
-                Coffee coffee = new Coffee(_priceList);
-                coffee = (Coffee)BeverageList[orderItem];
+                _newCoffee = (Coffee)BeverageList[orderItem];
                 Console.WriteLine("\n\n-------------------------------------------");
                 Console.WriteLine("Order Item #" + (orderItem+1));
                 Console.WriteLine("-------------------------------------------\n");
-                coffee.PrintSummary();
+                _newCoffee.PrintSummary();
             }
 
             Console.WriteLine("\n===========================================\n");
@@ -105,12 +111,11 @@ namespace CoffeeMachine.Models
 
         public decimal PromptForPayment()
         {
-            Prompt prompt = new Prompt();
-            prompt.Message = "\n" +
+            _prompt.Message = "\n" +
                     "Please pay for your order using " + PaymentType.ToLower()+ ". Enter the amount to pay:";
 
             //Get input and trim any $ symbol, the user might have specified.
-            string userResponse = Prompt.CleanCurrencyInput(prompt.GetUserInput());
+            string userResponse = Prompt.CleanCurrencyInput(_prompt.GetUserInput());
 
 
             while (!decimal.TryParse(userResponse, out decimal num) || Convert.ToDecimal(userResponse) < TotalPrice) // while not a decimal value that is at least the amount requested
@@ -118,14 +123,14 @@ namespace CoffeeMachine.Models
                 // Validate Payment (did they give enough money?)
                 if (decimal.TryParse(userResponse, out num) && (Convert.ToDecimal(userResponse) < TotalPrice))
                 {
-                    prompt.Message = "Inadequate amount received. You are " + (TotalPrice - Convert.ToDecimal(userResponse)).ToString("C") +  " short. Please pay the full amount: " + TotalPrice.ToString("C");
+                    _prompt.Message = "Inadequate amount received. You are " + (TotalPrice - Convert.ToDecimal(userResponse)).ToString("C") +  " short. Please pay the full amount: " + TotalPrice.ToString("C");
                 } else
                 {
-                    prompt.Message = "That is not a valid numeric response. Please enter a number:";
+                    _prompt.Message = "That is not a valid numeric response. Please enter a number:";
                 }
                 
                 //Get input and trim any $ symbol, the user might have specified.
-                userResponse = Prompt.CleanCurrencyInput(prompt.GetUserInput());
+                userResponse = Prompt.CleanCurrencyInput(_prompt.GetUserInput());
             }
             return Convert.ToDecimal(userResponse);
         }

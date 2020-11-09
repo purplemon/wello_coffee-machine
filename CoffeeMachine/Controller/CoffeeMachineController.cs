@@ -1,51 +1,46 @@
-﻿using CoffeeMachine.Models;
+﻿using CoffeeMachine.Interface;
+using CoffeeMachine.Models;
 using CoffeeMachine.Utilities;
 using System;
+using System.Collections;
 using System.Linq;
 
 namespace CoffeeMachine.Controller
 {
-    class CoffeeMachineController
+    public class CoffeeMachineController
     {
-        public static bool StartCoffeeMachine()
-        {
 
-            // Welcome Message
+        private CoffeeMenu _priceList;
+        private IPrompt _prompt;
+        private IOrder _order;
+        public CoffeeMachineController()
+        {
             PrintWelcomeMessage();
 
-            Order order = GetNewOrder();
-            
-
-            // Check if order was successful
-            if (order != null)
-            {
-                
-                Console.WriteLine("\nThank you for your order. Goodbye!\n");
-                return true;
-            } else
-            {
-                Console.WriteLine("\nYour order was not completed.\n");
-                return false;
-            }
-
+            this._priceList = new CoffeeMenu();
+            this._prompt = new Prompt();
+            this._order = new Order(_priceList, _prompt);
         }
 
-        public static Order GetNewOrder()
+        public IOrder GetNewOrder()
         {
             try
             {
-                
-                // Get menu
-                CoffeeMenu coffeeMenu = GetCoffeeMenu();
-                
+
+                // Display Menu
+                string userResponse = PromptForCoffeeMenu();
+                if (userResponse == "menu")
+                {
+                    _priceList.PrintMenu();
+                }
+
                 // Build Order
-                Order order = new Order(coffeeMenu);
-                order.BuildOrder();
+                _order.Build();
 
-                // Process Orcer
-                order.ProcessPayment();
+                // Process Order
+                _order.ProcessPayment();
 
-                return order;
+                return _order;
             } catch (Exception e)
             {
                 Console.Error.Write("An error occured while building the order:" + e);
@@ -63,26 +58,21 @@ namespace CoffeeMachine.Controller
 
         }
 
-        public static CoffeeMenu GetCoffeeMenu()
+        public virtual string PromptForCoffeeMenu()
         {
-            CoffeeMenu coffeeMenu = new CoffeeMenu();
-
             // Prompt to optionally see menu
-            Prompt prompt = new Prompt();
-            prompt.Message = "What can I get for you?\n" +
+            _prompt.Message = "What can I get for you?\n" +
                 "\t'menu' - View menu and prices\n" +
                 "\t'order' - Create order\n";
-            string userResponse = prompt.GetUserInput();
+            string userResponse = _prompt.GetUserInput();
             string[] expectedResponse = { "order", "menu" };
-            while (!expectedResponse.Contains(userResponse))
+            while (!((IList)expectedResponse).Contains(userResponse))
             {
                 // prompt again
-                prompt.Message = "Invalid option";
-                userResponse = prompt.GetUserInput();
+                _prompt.Message = "Invalid option";
+                userResponse = _prompt.GetUserInput();
             }
-            if (userResponse == "menu") { coffeeMenu.PrintMenu(); }
-
-            return coffeeMenu;
+            return userResponse;
         }
     }
 }

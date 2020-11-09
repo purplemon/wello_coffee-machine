@@ -5,9 +5,11 @@ using System.Text;
 
 namespace CoffeeMachine.Interface
 {
-    public interface IBeverageSizeAndPrice
+    public interface IPrompt
     {
-        public decimal Price { get; set; }
-        public string Size { get; set; }
+        public string Message { get; set; }
+
+        public string GetUserInput();
+
     }
 }
